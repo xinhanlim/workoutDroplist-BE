@@ -1,10 +1,11 @@
 require('dotenv').config();
 const { MongoClient } = require("mongodb");
 const mongoURL = process.env.MONGO_URL;
-const dbName = process.env.MONGODB_DBNAME;
+const dbName = process.env.MONGO_DBNAME;
+console.log(dbName);
 
 
-async function connect(){
+async function connect() {
     let client = await MongoClient.connect(mongoURL);
     let db = client.db(dbName);
     return db;

@@ -1,8 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const PORT = process.env.PORT;
+
+const userRouter = require('./routes/userRoute')
 
 let app = express();
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res)=>{
     res.json({
@@ -10,6 +15,8 @@ app.get('/', (req, res)=>{
     })
 })
 
-app.listen(3200, () =>{
-    console.log("Sever has started")
+app.use('/api/users', userRouter);
+
+app.listen(`${PORT}`, () =>{
+    console.log(`Sever has started, ${PORT}`)
 })

@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const { getAllUser } = require('../data/userData')
+const { getUserByEmail } = require('../services/userService');
 
-router.get('/', async (req, res) =>{
-    try{
-        const allUser = await getAllUser();
-        console.log(allUser);
-        res.json(allUser);
-
-    }catch(e){
+router.get('/:email', async (req, res) => {
+    try {
+        const email = req.params.email;
+        console.log(email)
+        const user = await getUserByEmail(email);
+        res.json(user);
+    } catch (e) {
         console.log(e);
         res.status(500).json({
-            "message":"Error Getting All User"
+            "message": "Error Getting All User"
         })
     }
 })

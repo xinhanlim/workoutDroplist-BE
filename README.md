@@ -7,3 +7,5 @@ When doing a test to getAllUser sample data, return an empty array, due to MONGO
 
 unable to fetch user by email due to , const user = await getUserByEmail(); When calling getUserByEmail() in the route, the function was passing undefined thus leading to undefined,
 thus const user = await getUserByEmail(email) , have to include it in the email.
+
+unable to update user due to, userId missing in the userData/userService layer, and that;s why it's having the id that user key in , in the email field. 

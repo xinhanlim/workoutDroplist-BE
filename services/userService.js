@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const userDataLayer = require('../data/userData');
-const userValidation = require('../middlewares/userValidation');
+const userValidation = require('../ultis/userValidation');
 
 async function getUserByEmail(email) {
     const user = await userDataLayer.getUserByEmail(email)
@@ -25,4 +25,15 @@ async function createUser(email, password, displayName) {
     return newUserId
 }
 
-module.exports = { getUserByEmail, createUser };
+async function updateUser(userId,{email, password, displayName}) {
+    const errors = userValidation({ email, password, displayName });
+    if (errors.length) {
+        const err = new Error(errors.join(', '));
+        err.code = 'VALIDATION';
+        throw err;
+    }
+    const updatedUser = await userDataLayer.updateUser(userId, {email, password, displayName,updatedAt: new Date() });
+    return updatedUser
+}
+
+module.exports = { getUserByEmail, createUser, updateUser };

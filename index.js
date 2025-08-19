@@ -4,7 +4,7 @@ const cors = require('cors');
 const PORT = process.env.PORT;
 
 const userRouter = require('./routes/userRoute')
-const newUserRouter = require('./routes/userRoute')
+
 
 let app = express();
 app.use(cors());
@@ -17,6 +17,7 @@ app.get('/', (req, res)=>{
 })
 
 app.use('/api/users', userRouter);
+
 
 app.listen(`${PORT}`, () =>{
     console.log(`Sever has started, ${PORT}`)

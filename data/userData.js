@@ -55,4 +55,14 @@ async function updateUser(userId, {email, password, displayName,updatedAt} ) {
     }
 }
 
-module.exports = { getUserByEmail, createUser, updateUser };
+async function deleteUser(userId){
+    try{
+        const db = await connect();
+        const result = await db.collection('users').deleteOne({_id: new ObjectId(userId)})
+        return result;
+    } catch(e){
+        console.log(e);
+    }
+}
+
+module.exports = { getUserByEmail, createUser, updateUser, deleteUser };

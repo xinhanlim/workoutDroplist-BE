@@ -38,4 +38,9 @@ async function updateUser(userId,{email, password, displayName}) {
     return updatedUser
 }
 
-module.exports = { getUserByEmail, createUser, updateUser };
+async function deleteUser(userId) {
+    const deletedUser = await userDataLayer.deleteUser(userId);
+    return deletedUser;
+}
+
+module.exports = { getUserByEmail, createUser, updateUser , deleteUser};

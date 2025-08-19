@@ -17,7 +17,7 @@ async function createUser(email, password, displayName) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUserId = await userDataLayer.createUser({
         email,
-        hashedPassword,
+        password:hashedPassword,
         displayName,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -32,7 +32,9 @@ async function updateUser(userId,{email, password, displayName}) {
         err.code = 'VALIDATION';
         throw err;
     }
-    const updatedUser = await userDataLayer.updateUser(userId, {email, password, displayName,updatedAt: new Date() });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const updatedUser = await userDataLayer.updateUser(userId, {email,password:hashedPassword, displayName,updatedAt: new Date() });
     return updatedUser
 }
 

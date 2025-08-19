@@ -11,13 +11,13 @@ async function getUserByEmail(email) {
     }
 }
 
-async function createUser({ email, hashedPassword, displayName, xp = 0, level = 1, streakDays = 0, lastWorkoutAt = null, badges = [], createdAt = new Date(), updatedAt = new Date() }) {
+async function createUser({ email, password, displayName, xp = 0, level = 1, streakDays = 0, lastWorkoutAt = null, badges = [], createdAt = new Date(), updatedAt = new Date() }) {
     try {
         const db = await connect();
 
         const newDoc = {
             email,
-            hashedPassword,
+            password,
             displayName,
             xp,
             level,

@@ -1,16 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../services/userService');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const verifyToken = require('../middlewares/AuthenticationJWT')
+require('dotenv').config();
 
-router.get('/:email', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
-        const email = req.params.email;
+        const { email, password } = req.body
         const user = await userService.getUserByEmail(email);
-        res.json(user);
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) {
+            return res.status(500).json({
+                "message": "Invalid Email or Password"
+            })
+        }
+        const token = jwt.sign({
+            'userId': user.id
+        }, process.env.JWT_SECRET,
+            {
+                'expiresIn': "1h"
+            })
+        res.json({
+            message: "Login successful",
+            token
+        })
     } catch (e) {
         console.log(e);
         res.status(500).json({
-            "message": "Error Getting All User"
+           "error" : e,
+            "message": "Invalid Email Or Password"
         })
     }
 })
@@ -33,13 +53,14 @@ router.post('/register', async (req, res) => {
     }
 })
 
-router.put('/update/:id', async (req, res) => {
+router.put('/me/:id',verifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
         const { email, password, displayName } = req.body;
         const updatedUser = await userService.updateUser(userId, { email, password, displayName });
         res.json({
             message: "User Updated Successfully",
+            updatedUser
         });
         return updatedUser
 
@@ -51,16 +72,16 @@ router.put('/update/:id', async (req, res) => {
     }
 })
 
-router.delete('/delete/:id', async (req, res) => {
-    try{
+router.delete('/me/:id',verifyToken, async (req, res) => {
+    try {
         const userId = req.params.id;
         const deleteUser = await userService.deleteUser(userId);
         res.json({
             message: "User Deleted Successfully",
         });
         return deleteUser;
-        
-    }catch (e) {
+
+    } catch (e) {
         console.log(e);
         res.status(500).json({
             "message": "Error Deleting User"

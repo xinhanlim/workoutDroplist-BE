@@ -3,7 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const PORT = process.env.PORT;
 
-const userRouter = require('./routes/userRoute')
+const userRouter = require('./routes/userRoute');
+const workoutRouter = require('./routes/workoutRoute');
+
+
 
 
 let app = express();
@@ -17,6 +20,7 @@ app.get('/', (req, res)=>{
 })
 
 app.use('/api/users', userRouter);
+app.use('/api/users/me',workoutRouter);
 
 
 app.listen(`${PORT}`, () =>{

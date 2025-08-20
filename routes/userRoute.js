@@ -53,6 +53,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
+//update user
 router.put('/me/:id',verifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
@@ -60,7 +61,6 @@ router.put('/me/:id',verifyToken, async (req, res) => {
         const updatedUser = await userService.updateUser(userId, { email, password, displayName });
         res.json({
             message: "User Updated Successfully",
-            updatedUser
         });
         return updatedUser
 

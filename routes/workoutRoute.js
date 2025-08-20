@@ -20,4 +20,21 @@ router.get('/:id/workout',verifyToken, async (req, res) => {
     }
 })
 
+router.post('/:id/workout/new',verifyToken, async (req,res) =>{
+   try {
+        const userId = req.params.id;
+        const { notes, sets } = req.body
+        const result = await workoutService.createWorkout(userId, notes, sets);
+        res.json({
+            result
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            "error": e,
+            "message": "Invalid Email Or Password"
+        })
+    } 
+})
+
 module.exports = router;

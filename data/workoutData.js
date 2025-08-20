@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 const connect = require('../server/database');
+const exerciseDataLayer = require('./exerciseData')
 
 
 async function getAllWorkoutByUser(userId) {
@@ -12,24 +13,18 @@ async function getAllWorkoutByUser(userId) {
     }
 }
 
-async function createWorkout(userId,notes,name) {
+async function createWorkout(_id, notes,sets) {
     try {
         const db = await connect();
-        const exerciseDoc = await db.collection('exercises').find({name: { $in: name }}).toArray();
-
         const workoutDoc = {
-            userId: new ObjectId(userId),
+            userId: new ObjectId(_id),
             date: new Date(),
             notes,
-            sets: exerciseDoc.map(s =>({
-             name: s.name,
-            }))
+            sets
         }
-        console.log(workoutDoc);
         const result = await db.collection('workout').insertOne(workoutDoc);
         return result;
-
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 }

@@ -14,8 +14,8 @@ async function getAllWorkoutByUser(userId) {
 }
 
 async function createWorkout(_id, notes = "", setsInput = []) {
-    const names = setsInput.map(s => s.name)
-    const exerciseDoc = await exerciseDataLayer.getExerciseByName(names);
+    const name = setsInput.map(s => s.name)
+    const exerciseDoc = await exerciseDataLayer.getExerciseByName(name);
     console.log("exerciseDoc", exerciseDoc)
     const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
 

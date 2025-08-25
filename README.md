@@ -6,7 +6,7 @@
 ### 1. Unable to extract the Id,Name,Weight,Reps,Rpe in the array of Sets of the workout. 
 <details>
 
-```bash
+```js
 const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();
 console.log(result);
 # result [
@@ -16,7 +16,7 @@ console.log(result);
 ```
 in my exerciseDataLayer area , i'm extracting based on name to link to user input. 
 
-```bash
+```js
 const exerciseDoc = await exerciseDataLayer.getExerciseByName(names);
 console.log(exceriseDoc);
 # exerciseDoc [
@@ -45,15 +45,17 @@ try {
 over here i'm unable to show the weight,reps,rpe. because i'm only extracting the exceriseDoc which returns just the name and id, rest of the field will be null
 so i had to find a way to extract the rest of the information such as weight and reps and rpe from the user input and combine it with the exceriseDoc id and name
 
-```bash
+```js
+const name = setsInput.map(s => s.name)
 const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
 # [ 
 #   { pushup, {_id: ObjectId("68a4384d1322900ffd4104ef", name:"Push-Up")}}
 # ]
 ```
+With the **const name** i'm able to get the user input firstly so i can match it up later on from my database.
 so i get the **const norm** to eliminate any dashes/spaces for easy comparison of the name of excerise user send
 
-``` bash
+``` js
  const sets = setsInput.map(s => {
         const match = exerciseDoc.find(d => norm(d.name) === norm(s.name));
         return {

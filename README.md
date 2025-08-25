@@ -48,9 +48,6 @@ so i had to find a way to extract the rest of the information such as weight and
 ```js
 const name = setsInput.map(s => s.name)
 const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
-// [ 
-//   { pushup, {_id: ObjectId("68a4384d1322900ffd4104ef", name:"Push-Up")}}
-// ]
 ```
 With the **const name** i'm able to get the user input firstly so i can match it up later on from my database.
 so i get the **const norm** to eliminate any dashes/spaces for easy comparison of the name of excerise user send

@@ -4,6 +4,7 @@
 ## Problem Encountered
 
 ### 1. Unable to extract the Id,Name,Weight,Reps,Rpe in the array of Sets of the workout. 
+<details> 
 ```bash
 const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();
 console.log(result);
@@ -40,4 +41,5 @@ try {
         console.log(e);
     }
 ```
-over here i'm unable to show the weight,reps,rpe. because i'm only extracting the exceriseDoc which returns just the name and id. 
+over here i'm unable to show the weight,reps,rpe. because i'm only extracting the exceriseDoc which returns just the name and id, rest of the field is null
+</details>

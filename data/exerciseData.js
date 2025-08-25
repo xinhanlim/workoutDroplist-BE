@@ -1,27 +1,49 @@
+const { ObjectId } = require('mongodb');
 const connect = require('../server/database');
 
 async function getAllExercise() {
     try {
         const db = await connect();
         const result = await db.collection('exercises').find({}).toArray();
-        console.log(result);
         return result;
-    } catch(e) {
+    } catch (e) {
         console.log(e);
     }
 }
 
-async function getExerciseById(id){
+async function getExerciseByName(name) {
+    try {
+        const db = await connect();
+        const extractName = Array.isArray(name) ? name.map(n => n.name || n ): [name];
+        console.log("extractName", extractName)
+
+        const regexes = extractName.map(n => {
+            // remove spaces, hyphens, underscores from input
+            const plain = n.toLowerCase().replace(/[\s\-_]+/g, '');
+            // build regex that allows those separators optionally between chars
+            const pattern = plain.split('').join('[\\s\\-_]?');
+            return new RegExp(`^${pattern}$`, 'i');
+        });
+        const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();
+        console.log("name", name);
+        console.log("result", result);
+        return result;
+    } catch (e) {
+        console.log(e);
+    }
 
 }
 
-async function createExercise(){
+async function createExercise() {
 
 }
 
-async function deleteExerise(){
+async function updateExercise() {
+
+}
+async function deleteExercise() {
 
 }
 
 
-module.exports = { getAllExercise ,getExerciseById, createExercise, deleteExerise};
+module.exports = { getAllExercise, getExerciseByName, createExercise, updateExercise, deleteExercise };

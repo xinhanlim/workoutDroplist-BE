@@ -23,7 +23,7 @@ router.get('/:id/workout',verifyToken, async (req, res) => {
 router.post('/:id/workout/new',verifyToken, async (req,res) =>{
    try {
         const userId = req.params.id;
-        const { notes, sets } = req.body
+        const { notes, sets} = req.body
         const result = await workoutService.createWorkout(userId, notes, sets);
         res.json({
             result

@@ -5,8 +5,8 @@ async function getAllWorkoutByUser(userId) {
     return userWorkout;
 }
 
-async function createWorkout(userId,notes,sets){
-    const newWorkout = await workoutDataLayer.createWorkout(userId, notes,sets)
+async function createWorkout(userId,notes,sets,weight, reps, rpe){
+    const newWorkout = await workoutDataLayer.createWorkout(userId, notes,sets,weight,reps,rpe)
     return newWorkout;
 }
 

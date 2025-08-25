@@ -9,8 +9,11 @@ require('dotenv').config();
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body
+        console.log("login", req.body)
         const user = await userService.getUserByEmail(email);
         const isPasswordValid = await bcrypt.compare(password, user.password)
+        console.log(password);
+        console.log(user.password);
         if (!isPasswordValid) {
             return res.status(500).json({
                 "message": "Invalid Email or Password"
@@ -37,7 +40,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        const { email, password, displayName } = req.body
+        const { email, password, displayName } = req.body;
+        console.log("req.body", req.body);
         const newUserId = await userService.createUser(email, password, displayName);
 
         res.json({

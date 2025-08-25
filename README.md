@@ -71,5 +71,6 @@ so i get the **const norm** to eliminate any dashes/spaces for easy comparison o
 ```
 and from there i need to merge the information together.
 so for each setsInput map happen, **const match** will find through the exceriseDoc to get the name and compared with the user input.
+the weight reps and rpe will be directly from the user input.
 
 </details>

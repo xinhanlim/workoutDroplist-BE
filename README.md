@@ -7,16 +7,20 @@
 ```bash
 const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();
 console.log(result);
-result [
-  { _id: new ObjectId('68a4383c1322900ffd4104ed'), name: 'Squat' },
-  { _id: new ObjectId('68a4384d1322900ffd4104ef'), name: 'Push-up' }
-]
+# result [
+#   { _id: new ObjectId('68a4383c1322900ffd4104ed'), name: 'Squat' },
+#   { _id: new ObjectId('68a4384d1322900ffd4104ef'), name: 'Push-up' }
+# ]
 ```
-in the area , i'm extracting based on name to link to user input. 
+in this area , i'm extracting based on name to link to user input. 
 
 ```bash
-const names = setsInput.map(s => s.name)
 const exerciseDoc = await exerciseDataLayer.getExerciseByName(names);
+console.log(exceriseDoc);
+# exerciseDoc [
+#   { _id: new ObjectId('68a4383c1322900ffd4104ed'), name: 'Squat' },
+#   { _id: new ObjectId('68a4384d1322900ffd4104ef'), name: 'Push-up' }
+# ]
 try {
         const db = await connect();
         const workoutDoc = {

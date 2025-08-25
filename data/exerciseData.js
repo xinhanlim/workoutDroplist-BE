@@ -21,7 +21,7 @@ async function getExerciseByName(name) {
             // remove spaces, hyphens, underscores from input
             const plain = n.toLowerCase().replace(/[\s\-_]+/g, '');
             // build regex that allows those separators optionally between chars
-            const pattern = plain.split('').join('[\\s\\-_]?');
+            const pattern = plain.split('').join('[\\s\\-_]?')
             return new RegExp(`^${pattern}$`, 'i');
         });
         const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();

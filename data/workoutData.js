@@ -23,8 +23,8 @@ async function createWorkout(_id, notes = "", setsInput = []) {
     const sets = setsInput.map(s => {
         const match = byName.get(norm(s.name));
         return {
-            _id: match._id,   // link to exercise
-            name: match.name,        // denormalized name
+            _id: match._id, 
+            name: match.name, 
             weight: s.weight,
             reps: s.reps,
             rpe: s.rpe

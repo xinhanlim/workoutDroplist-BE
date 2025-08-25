@@ -19,10 +19,10 @@ in my exerciseDataLayer area , i'm extracting based on name to link to user inpu
 ```js
 const exerciseDoc = await exerciseDataLayer.getExerciseByName(names);
 console.log(exceriseDoc);
-# exerciseDoc [
-#   { _id: new ObjectId('68a4383c1322900ffd4104ed'), name: 'Squat' },
-#   { _id: new ObjectId('68a4384d1322900ffd4104ef'), name: 'Push-up' }
-# ]
+// exerciseDoc [
+//    { _id: new ObjectId('68a4383c1322900ffd4104ed'), name: 'Squat' },
+//    { _id: new ObjectId('68a4384d1322900ffd4104ef'), name: 'Push-up' }
+//  ]
 try {
         const db = await connect();
         const workoutDoc = {
@@ -48,9 +48,9 @@ so i had to find a way to extract the rest of the information such as weight and
 ```js
 const name = setsInput.map(s => s.name)
 const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
-# [ 
-#   { pushup, {_id: ObjectId("68a4384d1322900ffd4104ef", name:"Push-Up")}}
-# ]
+// [ 
+//   { pushup, {_id: ObjectId("68a4384d1322900ffd4104ef", name:"Push-Up")}}
+// ]
 ```
 With the **const name** i'm able to get the user input firstly so i can match it up later on from my database.
 so i get the **const norm** to eliminate any dashes/spaces for easy comparison of the name of excerise user send
@@ -67,10 +67,10 @@ so i get the **const norm** to eliminate any dashes/spaces for easy comparison o
         };
     });
     console.log(sets);
-#[
-#   {_id: new ObjectId('68a4384d1322900ffd4104ef'),name: 'Push-up',weight: 80, reps: 5,rpe: 8},
-#   {_id: new ObjectId('68a4383c1322900ffd4104ed'),name: 'Squat',weight: 100,reps: 8,rpe: 9}
-# ]
+// [
+//    {_id: new ObjectId('68a4384d1322900ffd4104ef'),name: 'Push-up',weight: 80, reps: 5,rpe: 8},
+//    {_id: new ObjectId('68a4383c1322900ffd4104ed'),name: 'Squat',weight: 100,reps: 8,rpe: 9}
+//  ]
 ```
 and from there i need to merge the information together.
 so for each setsInput map happen, **const match** will find through the exceriseDoc to get the name and compared with the user input.

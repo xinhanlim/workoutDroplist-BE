@@ -10,9 +10,9 @@ async function getUserByEmail(email) {
 async function createUser(email, password, displayName) {
     const errors = userValidation({ email, password, displayName });
     if (errors.length) {
-        const err = new Error(errors.join(', '));
-        err.code = 'VALIDATION';
-        throw err;
+        const error = new Error(errors.join(', '));
+        error.code = 'VALIDATION';
+        throw error;
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUserId = await userDataLayer.createUser({

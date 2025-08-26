@@ -4,7 +4,7 @@ const workoutService = require('../services/workoutService');
 const verifyToken = require('../middlewares/AuthenticationJWT')
 require('dotenv').config();
 
-router.get('/:id/workout',verifyToken, async (req, res) => {
+router.get('/:id',verifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
         const getWorkout = await workoutService.getAllWorkoutByUser(userId);
@@ -20,11 +20,11 @@ router.get('/:id/workout',verifyToken, async (req, res) => {
     }
 })
 
-router.post('/:id/workout/new',verifyToken, async (req,res) =>{
+router.post('/:id/new',verifyToken, async (req,res) =>{
    try {
         const userId = req.params.id;
-        const { notes, sets} = req.body
-        const result = await workoutService.createWorkout(userId, notes, sets);
+        const { notes, sets, weight, reps, rpe} = req.body
+        const result = await workoutService.createWorkout(userId, notes, sets, weight,reps,rpe);
         res.json({
             result
         });

@@ -5,6 +5,7 @@ const PORT = process.env.PORT;
 
 const userRouter = require('./routes/userRoute');
 const workoutRouter = require('./routes/workoutRoute');
+const exerciseRouter = require('./routes/exerciseRoute')
 
 
 
@@ -20,7 +21,8 @@ app.get('/', (req, res)=>{
 })
 
 app.use('/api/users', userRouter);
-app.use('/api/users/me',workoutRouter);
+app.use('/api/users/workout',workoutRouter);
+app.use('/api/users/exercise',exerciseRouter);
 
 
 app.listen(`${PORT}`, () =>{

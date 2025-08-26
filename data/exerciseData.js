@@ -15,7 +15,6 @@ async function getExerciseByName(name) {
     try {
         const db = await connect();
         const extractName = Array.isArray(name) ? name.map(n => n.name || n ): [name];
-        console.log("extractName", extractName)
 
         const regexes = extractName.map(n => {
             // remove spaces, hyphens, underscores from input
@@ -25,8 +24,6 @@ async function getExerciseByName(name) {
             return new RegExp(`^${pattern}$`, 'i');
         });
         const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();
-        console.log("name", name);
-        console.log("result", result);
         return result;
     } catch (e) {
         console.log(e);
@@ -34,8 +31,23 @@ async function getExerciseByName(name) {
 
 }
 
-async function createExercise() {
+async function createExercise(name, muscleGroup, unit, difficulty, createdBy) {
+    try{
+        const db = await connect();
+        const newExercise = {
+            name,
+            muscleGroup,
+            unit,
+            difficulty,
+            createdBy
+        }
 
+        const result = await db.collection('exercises').insertOne(newExercise);
+        console.log(result);
+        return result;
+    }catch(e){
+        console.log(e);
+    }
 }
 
 async function updateExercise() {

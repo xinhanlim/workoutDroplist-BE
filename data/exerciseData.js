@@ -31,7 +31,7 @@ async function getExerciseByName(name) {
 
 }
 
-async function createExercise(name, muscleGroup, unit, difficulty, createdBy) {
+async function createExercise(name, muscleGroup, unit, difficulty, userId) {
     try{
         const db = await connect();
         const newExercise = {
@@ -39,7 +39,7 @@ async function createExercise(name, muscleGroup, unit, difficulty, createdBy) {
             muscleGroup,
             unit,
             difficulty,
-            createdBy
+            createdBy:userId
         }
 
         const result = await db.collection('exercises').insertOne(newExercise);

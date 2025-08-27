@@ -16,14 +16,14 @@ async function getAllWorkoutByUser(userId) {
 async function createWorkout(_id, notes = "", setsInput = []) {
     const name = setsInput.map(s => s.name)
     const exerciseDoc = await exerciseDataLayer.getExerciseByName(name);
-    console.log("exerciseDoc", exerciseDoc)
     const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
 
     const sets = setsInput.map(s => {
         const match = exerciseDoc.find(d => norm(d.name) === norm(s.name));
+        console.log(match);
         return {
-            _id: match._id, 
-            name: match.name, 
+            exerciseId: match._id,
+            name: match.name,
             weight: s.weight,
             reps: s.reps,
             rpe: s.rpe
@@ -46,4 +46,37 @@ async function createWorkout(_id, notes = "", setsInput = []) {
     }
 }
 
-module.exports = { getAllWorkoutByUser, createWorkout };
+async function updateWorkout(workoutId,notes,setsInput =[]) {
+
+    const name = setsInput.map(s => s.name)
+   const exerciseDoc = await exerciseDataLayer.getExerciseByName(name);
+   const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
+   console.log("exerciseDoc", exerciseDoc);
+
+    const sets = setsInput.map(s => {
+        const match = exerciseDoc.find(d => norm(d.name) === norm(s.name));
+        return {
+            exerciseId: match._id,
+            name: match.name,
+            weight: s.weight,
+            reps: s.reps,
+            rpe: s.rpe
+        };
+    });
+
+    try {
+        const db = await connect();
+        const updatedWorkout = {
+            notes,
+            sets
+        }
+        console.log("updatedWorkout",updatedWorkout);
+        const result = await db.collection('exercises').updateOne({ _id: new ObjectId(workoutId), }, { $set: updatedWorkout });
+
+        return result;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+module.exports = { getAllWorkoutByUser, createWorkout, updateWorkout };

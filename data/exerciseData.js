@@ -69,8 +69,14 @@ async function updateExercise(_id, name, muscleGroup, unit, difficulty) {
         console.log(e);
     }
 }
-async function deleteExercise() {
+async function deleteExercise(_id) {
+    try{
+        const db = await connect();
 
+        const result = await db.collection('exercises').deleteOne({_id: new ObjectId(_id)})
+    }catch(e){
+        console.log(e);
+    }
 }
 
 

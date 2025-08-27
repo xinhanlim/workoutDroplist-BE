@@ -20,11 +20,11 @@ router.get('/:id',verifyToken, async (req, res) => {
     }
 })
 
-router.post('/:id/new',verifyToken, async (req,res) =>{
+router.post('/new/:id',verifyToken, async (req,res) =>{
    try {
         const userId = req.params.id;
-        const { notes, sets, weight, reps, rpe} = req.body
-        const result = await workoutService.createWorkout(userId, notes, sets, weight,reps,rpe);
+        const { notes, sets} = req.body
+        const result = await workoutService.createWorkout(userId, notes, sets);
         res.json({
             result
         });
@@ -32,9 +32,25 @@ router.post('/:id/new',verifyToken, async (req,res) =>{
         console.log(e);
         res.status(500).json({
             "error": e,
-            "message": "Invalid Email Or Password"
+            "message": "Exercise doesn't exist in the system"
         })
     } 
 })
 
+router.put('/update/:id', verifyToken,  async (req,res)=>{
+    try{
+        const workoutId = req.params.id;
+        const {notes, sets} = req.body
+        console.log("req.body",req.body);
+        const result = await workoutService.updateWorkout(workoutId, notes,sets);
+        res.json({result});
+
+    }catch(e){
+        console.log(e);
+        res.status(500).json({
+            "error": e,
+            "message": "error"
+        })
+    }
+})
 module.exports = router;

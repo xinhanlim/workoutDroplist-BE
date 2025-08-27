@@ -25,9 +25,9 @@ router.post('/:id/new' ,verifyToken , async (req,res) => {
 router.put('/:id/update' ,verifyToken , async (req,res) => {
     try{
         let exerciseId = req.params.id
-        let { name, muscleGroup, unit, difficulty} = req.body
+        let { name, unit} = req.body
         console.log(req.body);
-        const result = await exerciseServiceLayer.updateExercise(exerciseId= new ObjectId(exerciseId),name, muscleGroup,unit,difficulty )
+        const result = await exerciseServiceLayer.updateExercise(exerciseId= new ObjectId(exerciseId),name, unit )
         res.json({result});
 
     }catch(e){
@@ -39,4 +39,19 @@ router.put('/:id/update' ,verifyToken , async (req,res) => {
     }
 })
 
+router.delete('/:id/delete', verifyToken, async (req,res) =>{
+    try{
+        let exerciseId = req.params.id;
+        const result = await exerciseServiceLayer.deleteExercise(exerciseId)
+        res.json({
+            "message":" You Have Successfully Deleted The Exercise",
+            result});
+    }catch(e){
+        console.log(e);
+        res.status(500).json({
+            "error": e,
+            "message": "Error creating new exercises"
+        })
+    }
+})
 module.exports = router;

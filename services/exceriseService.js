@@ -49,15 +49,12 @@ async function updateExercise(_id, name, muscleGroup, unit, difficulty) {
 
     const difficultyRegex = /^(Beginner|Intermediate|Advanced)$/i;
     // - Allows one of these difficulty levels
-
-    const createdByRegex = /^[a-f\d]{24}$/i;
-    // - Matches a MongoDB ObjectId (24 hex characters)
-
+    
     if (!nameRegex.test(name)) throw new Error("Invalid exercise name");
     if (!muscleGroupRegex.test(muscleGroup)) throw new Error("Invalid muscle group");
     if (!unitRegex.test(unit)) throw new Error("Invalid unit");
     if (!difficultyRegex.test(difficulty)) throw new Error("Invalid difficulty");
-    
+
     const updateExercise = await exerciseDataLayer.updateExercise(
         _id,
         name,
@@ -69,4 +66,10 @@ async function updateExercise(_id, name, muscleGroup, unit, difficulty) {
     return updateExercise;
 }
 
-module.exports = { createExercise, updateExercise }
+async function deleteExercise(_id) {
+
+    const deleteExercise = await exerciseDataLayer.deleteExercise(_id)
+    return deleteExercise
+}
+
+module.exports = { createExercise, updateExercise, deleteExercise }

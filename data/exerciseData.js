@@ -14,7 +14,7 @@ async function getAllExercise() {
 async function getExerciseByName(name) {
     try {
         const db = await connect();
-        const extractName = Array.isArray(name) ? name.map(n => n.name || n ): [name];
+        const extractName = Array.isArray(name) ? name.map(n => n.name || n) : [name];
 
         const regexes = extractName.map(n => {
             // remove spaces, hyphens, underscores from input
@@ -32,26 +32,42 @@ async function getExerciseByName(name) {
 }
 
 async function createExercise(name, muscleGroup, unit, difficulty, userId) {
-    try{
+    try {
         const db = await connect();
         const newExercise = {
             name,
             muscleGroup,
             unit,
             difficulty,
-            createdBy:userId
+            createdBy: userId
         }
 
         const result = await db.collection('exercises').insertOne(newExercise);
         console.log(result);
         return result;
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 }
 
-async function updateExercise() {
+async function updateExercise(_id, name, muscleGroup, unit, difficulty) {
+    try {
+        
+        const db = await connect();
+        
+        const updatedExercise = {
+            name,
+            muscleGroup,
+            unit,
+            difficulty
+        } 
 
+        const result = await db.collection('exercises').updateOne({_id: new ObjectId(_id)},{ $set: updatedExercise })
+        return result
+
+    } catch (e) {
+        console.log(e);
+    }
 }
 async function deleteExercise() {
 

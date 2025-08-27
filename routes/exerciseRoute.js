@@ -22,4 +22,21 @@ router.post('/:id/new' ,verifyToken , async (req,res) => {
     }
 })
 
+router.put('/:id/update' ,verifyToken , async (req,res) => {
+    try{
+        let exerciseId = req.params.id
+        let { name, muscleGroup, unit, difficulty} = req.body
+        console.log(req.body);
+        const result = await exerciseServiceLayer.updateExercise(exerciseId= new ObjectId(exerciseId),name, muscleGroup,unit,difficulty )
+        res.json({result});
+
+    }catch(e){
+        console.log(e);
+        res.status(500).json({
+            "error": e,
+            "message": "Error creating new exercises"
+        })
+    }
+})
+
 module.exports = router;

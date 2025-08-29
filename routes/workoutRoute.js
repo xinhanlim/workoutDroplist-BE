@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const workoutService = require('../services/workoutService');
-const verifyToken = require('../middlewares/AuthenticationJWT')
+const verifyToken = require('../middlewares/AuthenticationJWT');
+const { updateWorkout } = require('../data/workoutData');
 require('dotenv').config();
 
 router.get('/:id',verifyToken, async (req, res) => {
@@ -43,6 +44,7 @@ router.put('/update/:id', verifyToken,  async (req,res)=>{
         const {notes, sets} = req.body
         console.log("req.body",req.body);
         const result = await workoutService.updateWorkout(workoutId, notes,sets);
+        console.log(result)
         res.json({result});
 
     }catch(e){

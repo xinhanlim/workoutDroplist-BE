@@ -64,14 +64,17 @@ async function updateWorkout(workoutId,notes,setsInput =[]) {
         };
     });
 
+    const _id = new ObjectId(workoutId);
+
     try {
         const db = await connect();
         const updatedWorkout = {
             notes,
-            sets
+            sets,
+            updatedAt: new Date()
         }
         console.log("updatedWorkout",updatedWorkout);
-        const result = await db.collection('exercises').updateOne({ _id: new ObjectId(workoutId), }, { $set: updatedWorkout });
+        const result = await db.collection('workout').updateOne({ _id}, { $set: updatedWorkout });
 
         return result;
     } catch (e) {

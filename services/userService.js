@@ -8,7 +8,7 @@ async function getUserByEmail(email) {
 }
 
 async function createUser(email, password, displayName) {
-    const errors = userValidation({ email, password, displayName });
+    const errors = userValidation({ displayName, email, password });
     if (errors.length) {
         const error = new Error(errors.join(', '));
         error.code = 'VALIDATION';
@@ -25,8 +25,8 @@ async function createUser(email, password, displayName) {
     return newUserId
 }
 
-async function updateUser(userId,{email, password, displayName}) {
-    const errors = userValidation({ email, password, displayName });
+async function updateUser(userId,{displayName, email, password, }) {
+    const errors = userValidation({ displayName, email, password,  });
     if (errors.length) {
         const err = new Error(errors.join(', '));
         err.code = 'VALIDATION';

@@ -3,9 +3,10 @@ const router = express.Router();
 const workoutService = require('../services/workoutService');
 const verifyToken = require('../middlewares/AuthenticationJWT');
 const { updateWorkout } = require('../data/workoutData');
+const { verify } = require('jsonwebtoken');
 require('dotenv').config();
 
-router.get('/:id',verifyToken, async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
     try {
         const userId = req.params.id;
         const getWorkout = await workoutService.getAllWorkoutByUser(userId);
@@ -21,10 +22,10 @@ router.get('/:id',verifyToken, async (req, res) => {
     }
 })
 
-router.post('/new/:id',verifyToken, async (req,res) =>{
-   try {
+router.post('/new/:id', verifyToken, async (req, res) => {
+    try {
         const userId = req.params.id;
-        const { notes, sets} = req.body
+        const { notes, sets } = req.body
         const result = await workoutService.createWorkout(userId, notes, sets);
         res.json({
             result
@@ -35,23 +36,37 @@ router.post('/new/:id',verifyToken, async (req,res) =>{
             "error": e,
             "message": "Exercise doesn't exist in the system"
         })
-    } 
+    }
 })
 
-router.put('/update/:id', verifyToken,  async (req,res)=>{
-    try{
+router.put('/update/:id', verifyToken, async (req, res) => {
+    try {
         const workoutId = req.params.id;
-        const {notes, sets} = req.body
-        console.log("req.body",req.body);
-        const result = await workoutService.updateWorkout(workoutId, notes,sets);
-        console.log(result)
-        res.json({result});
+        const { notes, sets } = req.body
+        console.log("req.body", req.body);
+        const result = await workoutService.updateWorkout(workoutId, notes, sets);
+        res.json({ result });
 
-    }catch(e){
+    } catch (e) {
         console.log(e);
         res.status(500).json({
             "error": e,
             "message": "error"
+        })
+    }
+})
+
+router.delete('/delete/:id', verifyToken, async (req, res) => {
+    try {
+        const workoutId = req.params.id;
+        const result = await workoutService.deleteWorkout(workoutId);
+        res.json({result});
+        
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            "error": e,
+            "message": "Error Deleting"
         })
     }
 })

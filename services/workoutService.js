@@ -15,4 +15,9 @@ async function updateWorkout(workoutId,notes,sets){
     return updateWorkout
 }
 
-module.exports = { getAllWorkoutByUser,createWorkout, updateWorkout };
+async function deleteWorkout(workoutId){
+    const deleteWorkout = await workoutDataLayer.deleteWorkout(workoutId);
+    return deleteWorkout;
+}
+
+module.exports = { getAllWorkoutByUser,createWorkout, updateWorkout, deleteWorkout };

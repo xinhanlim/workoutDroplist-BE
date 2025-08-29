@@ -82,4 +82,14 @@ async function updateWorkout(workoutId,notes,setsInput =[]) {
     }
 }
 
-module.exports = { getAllWorkoutByUser, createWorkout, updateWorkout };
+async function deleteWorkout(workoutId){
+    try{
+        const db = await connect();
+        const result = await db.collection('workout').deleteOne({_id: new ObjectId(workoutId)});
+        return result;
+    }catch(e){
+        console.log(e);
+    }
+}
+
+module.exports = { getAllWorkoutByUser, createWorkout, updateWorkout, deleteWorkout };

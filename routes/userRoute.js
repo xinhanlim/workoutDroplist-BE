@@ -12,7 +12,7 @@ router.post('/login', async (req, res) => {
         const user = await userService.getUserByEmail(email);
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if (!isPasswordValid) {
-            return res.status(500).json({
+            return res.status(400).json({
                 "message": "Invalid Email or Password"
             })
         }
@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
         console.log(e);
         res.status(500).json({
            "error" : e,
-            "message": "Invalid Email Or Password"
+           "message": "Invalid Email Or Password"
         })
     }
 })
@@ -38,7 +38,6 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
     try {
         const { email, password, displayName } = req.body;
-        console.log("req.body", req.body);
         const newUserId = await userService.createUser(email, password, displayName);
 
         res.json({
@@ -54,7 +53,6 @@ router.post('/register', async (req, res) => {
     }
 })
 
-//update user
 router.put('/me/:id',verifyToken, async (req, res) => {
     try {
         const userId = req.params.id;

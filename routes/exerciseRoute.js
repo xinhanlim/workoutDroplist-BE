@@ -5,7 +5,7 @@ const verifyToken = require('../middlewares/AuthenticationJWT')
 require('dotenv').config();
 const { ObjectId } = require('mongodb');
 
-router.post('/:id/new' ,verifyToken , async (req,res) => {
+router.post('/new/:id' ,verifyToken , async (req,res) => {
     try{
         const userId = req.params.id;
         const { name, muscleGroup, unit, difficulty} = req.body
@@ -22,7 +22,7 @@ router.post('/:id/new' ,verifyToken , async (req,res) => {
     }
 })
 
-router.put('/:id/update' ,verifyToken , async (req,res) => {
+router.put('/update/:id' ,verifyToken , async (req,res) => {
     try{
         let exerciseId = req.params.id
         let { name, unit} = req.body
@@ -39,7 +39,7 @@ router.put('/:id/update' ,verifyToken , async (req,res) => {
     }
 })
 
-router.delete('/:id/delete', verifyToken, async (req,res) =>{
+router.delete('/delete/:id', verifyToken, async (req,res) =>{
     try{
         let exerciseId = req.params.id;
         const result = await exerciseServiceLayer.deleteExercise(exerciseId)

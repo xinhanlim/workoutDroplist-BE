@@ -7,7 +7,8 @@ const { ObjectId } = require('mongodb');
 
 router.get('/',verifyToken, async(req,res) =>{
     try{
-        const userId = req.params.id;
+        const userId = req.user.id;
+        console.log("userId:", userId)
         const result = await exerciseServiceLayer.getAllExercise(userId)
         res.json(result)
     }catch(e){

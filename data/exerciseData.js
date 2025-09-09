@@ -5,9 +5,10 @@ async function getAllExercise(userId) {
     try {
         const db = await connect();
         const filter = {$or:[
-            {createdBy: { $regex: "^system$", $options: "i" }},
-            {createdBy: userId}
+            {createdBy: {$regex: "^system$", $options: "i" }},
+            {createdBy: new ObjectId(userId)}
         ]}
+        console.log(filter);
         const result = await db.collection('exercises').find(filter).toArray();
         return result;
     } catch (e) {

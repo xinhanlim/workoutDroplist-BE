@@ -1,5 +1,9 @@
 const exerciseDataLayer = require('../data/exerciseData');
 
+async function getAllExercise(userId){
+    const result = await exerciseDataLayer.getAllExercise(userId);
+    return result
+}
 async function createExercise(name, muscleGroup, unit, difficulty, createdBy) {
 
     const nameRegex = /^[A-Za-z\s\-]{2,50}$/;
@@ -72,4 +76,4 @@ async function deleteExercise(_id) {
     return deleteExercise
 }
 
-module.exports = { createExercise, updateExercise, deleteExercise }
+module.exports = { getAllExercise, createExercise, updateExercise, deleteExercise }

@@ -5,6 +5,20 @@ const verifyToken = require('../middlewares/AuthenticationJWT')
 require('dotenv').config();
 const { ObjectId } = require('mongodb');
 
+router.get('/',verifyToken, async(req,res) =>{
+    try{
+        const userId = req.params.id;
+        const result = await exerciseServiceLayer.getAllExercise(userId)
+        res.json(result)
+    }catch(e){
+        console.log(e);
+        res.status(500).json({
+            "error": e,
+            "message": "Error creating new exercises"
+        })
+    }
+})
+
 router.post('/new/:id' ,verifyToken , async (req,res) => {
     try{
         const userId = req.params.id;

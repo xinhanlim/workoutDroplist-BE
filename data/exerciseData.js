@@ -1,10 +1,14 @@
 const { ObjectId } = require('mongodb');
 const connect = require('../server/database');
 
-async function getAllExercise() {
+async function getAllExercise(userId) {
     try {
         const db = await connect();
-        const result = await db.collection('exercises').find({}).toArray();
+        const filter = {$or:[
+            {createdBy: { $regex: "^system$", $options: "i" }},
+            {createdBy: userId}
+        ]}
+        const result = await db.collection('exercises').find(filter).toArray();
         return result;
     } catch (e) {
         console.log(e);

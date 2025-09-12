@@ -43,7 +43,6 @@ router.put('/update/:id', verifyToken, async (req, res) => {
     try {
         const workoutId = req.params.id;
         const { notes, sets } = req.body
-        console.log("req.body", req.body);
         const result = await workoutService.updateWorkout(workoutId, notes, sets);
         res.json({ result });
 

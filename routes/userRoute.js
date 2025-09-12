@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
             'displayName': user.displayName
         }, process.env.JWT_SECRET,
             {
-                'expiresIn': "1h"
+                'expiresIn': "3h"
             })
         res.json({
             message: "Login successful",

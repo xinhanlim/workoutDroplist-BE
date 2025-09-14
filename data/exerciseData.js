@@ -79,6 +79,7 @@ async function deleteExercise(_id) {
         const db = await connect();
 
         const result = await db.collection('exercises').deleteOne({_id: new ObjectId(_id)})
+        return result
     }catch(e){
         console.log(e);
     }

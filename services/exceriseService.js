@@ -48,8 +48,8 @@ async function updateExercise( exerciseId , name, muscleGroup, unit, difficulty)
     const muscleGroupRegex = /^(Chest|Back|Shoulders|Arms|Legs|Core|Full Body)$/i;
     // - Restricts to a predefined set of muscle groups (case-insensitive)
 
-    const unitRegex = /^(kg|lbs|bodyweight|reps)$/i;
-    // - Only allows "kg", "lbs", or "bodyweight" or "reps" as valid units
+    const unitRegex = /^(kgs|lbs|bodyweight|reps)$/i;
+    // - Only allows "kgs", "lbs", or "bodyweight" or "reps" as valid units
 
     const difficultyRegex = /^(Beginner|Intermediate|Advanced)$/i;
     // - Allows one of these difficulty levels

@@ -47,7 +47,6 @@ async function updateUser(userId, { email, password, displayName, updatedAt }) {
             displayName,
             updatedAt
         }
-        console.log(updatedUser);
 
         const result = await db.collection('users').updateOne({ _id: new ObjectId(userId) }, { $set: updatedUser })
         if (result.matchedCount === 0) {

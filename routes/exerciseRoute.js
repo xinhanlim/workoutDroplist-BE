@@ -17,7 +17,7 @@ router.get('/',verifyToken, async(req,res) =>{
             "error": e,
             "message": "Error getting exercise"
         })
-    }
+    }   
 })
 
 router.post('/new' ,verifyToken , async (req,res) => {
@@ -39,11 +39,10 @@ router.post('/new' ,verifyToken , async (req,res) => {
 
 router.put('/update/:id' ,verifyToken , async (req,res) => {
     try{
-        let exerciseId = req.params.id
-        let { name, unit} = req.body
-        console.log(req.body);
-        const result = await exerciseServiceLayer.updateExercise(exerciseId= new ObjectId(exerciseId),name, unit )
-        res.json({result});
+        const exerciseId = new ObjectId(req.params.id)
+        let { name, muscleGroup, unit, difficulty } = req.body
+        const result = await exerciseServiceLayer.updateExercise( exerciseId , name, muscleGroup, unit, difficulty)
+        res.json(result);
 
     }catch(e){
         console.log(e);
@@ -54,9 +53,9 @@ router.put('/update/:id' ,verifyToken , async (req,res) => {
     }
 })
 
-router.delete('/delete/:id', verifyToken, async (req,res) =>{
+router.delete('/delete', verifyToken, async (req,res) =>{
     try{
-        let exerciseId = req.params.id;
+        let exerciseId = req.user.id;
         const result = await exerciseServiceLayer.deleteExercise(exerciseId)
         res.json({
             "message":" You Have Successfully Deleted The Exercise",

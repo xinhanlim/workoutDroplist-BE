@@ -1,6 +1,6 @@
 const exerciseDataLayer = require('../data/exerciseData');
 
-async function getAllExercise(userId){
+async function getAllExercise(userId) {
     const result = await exerciseDataLayer.getAllExercise(userId);
     return result
 }
@@ -39,9 +39,9 @@ async function createExercise(name, muscleGroup, unit, difficulty, createdBy) {
     return newExcerise;
 }
 
-async function updateExercise(_id, name, muscleGroup, unit, difficulty) {
+async function updateExercise( exerciseId , name, muscleGroup, unit, difficulty) {
 
-    const nameRegex = /^[A-Za-z\s\-]{2,50}$/;
+    const nameRegex = /^[\p{L}\p{N}][\p{L}\p{N}\s'’\-()&/]{1,49}$/u;
     // - Allows letters, spaces, and hyphens
     // - Between 2 and 50 characters (good for exercise names like "Bench Press", "Pull-up")
 
@@ -53,22 +53,22 @@ async function updateExercise(_id, name, muscleGroup, unit, difficulty) {
 
     const difficultyRegex = /^(Beginner|Intermediate|Advanced)$/i;
     // - Allows one of these difficulty levels
-    
+
     if (!nameRegex.test(name)) throw new Error("Invalid exercise name");
     if (!muscleGroupRegex.test(muscleGroup)) throw new Error("Invalid muscle group");
     if (!unitRegex.test(unit)) throw new Error("Invalid unit");
     if (!difficultyRegex.test(difficulty)) throw new Error("Invalid difficulty");
 
     const updateExercise = await exerciseDataLayer.updateExercise(
-        _id,
+        exerciseId,
         name,
         muscleGroup,
         unit,
         difficulty,
     )
-
     return updateExercise;
 }
+
 
 async function deleteExercise(_id) {
 

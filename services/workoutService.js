@@ -1,7 +1,7 @@
 const workoutDataLayer = require('../data/workoutData');
 
-async function getAllWorkoutByUser(userId) {
-    const userWorkout = await workoutDataLayer.getAllWorkoutByUser(userId);
+async function getAllWorkout(userId) {
+    const userWorkout = await workoutDataLayer.getAllWorkout(userId);
     return userWorkout;
 }
 
@@ -20,4 +20,4 @@ async function deleteWorkout(workoutId){
     return deleteWorkout;
 }
 
-module.exports = { getAllWorkoutByUser,createWorkout, updateWorkout, deleteWorkout };
+module.exports = { getAllWorkout,createWorkout, updateWorkout, deleteWorkout };

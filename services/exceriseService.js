@@ -70,9 +70,9 @@ async function updateExercise( exerciseId , name, muscleGroup, unit, difficulty)
 }
 
 
-async function deleteExercise(_id) {
+async function deleteExercise(exerciseId) {
 
-    const deleteExercise = await exerciseDataLayer.deleteExercise(_id)
+    const deleteExercise = await exerciseDataLayer.deleteExercise(exerciseId)
     return deleteExercise
 }
 

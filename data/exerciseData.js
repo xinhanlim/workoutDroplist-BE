@@ -10,7 +10,6 @@ async function getAllExercise(userId) {
                 { createdBy: new ObjectId(userId) }
             ]
         }
-        console.log(filter);
         const result = await db.collection('exercises').find(filter).toArray();
         return result;
     } catch (e) {
@@ -86,16 +85,20 @@ async function updateExercise(exerciseId, name, muscleGroup, unit, difficulty) {
         console.log(e);
     }
 }
-async function deleteExercise(_id) {
+async function deleteExercise(exerciseId) {
     try {
         const db = await connect();
-        const ex = await db.collection('exercises').findOne({ _id: new ObjectId(id) });
+        console.log('Looking for exercise with ID:', exerciseId);
+        const ex = await db.collection('exercises').findOne({ _id: new ObjectId(exerciseId) });
         if ((ex.name).toLowerCase() === 'system') {
             const err = new Error("System exercises can't be deleted");
             throw err
         }
+        console.log("Found Exercise Id : ", ex._id)
+        console.log("Deleting Exercise Id : ", ex._id)
 
-        const result = await db.collection('exercises').deleteOne({ _id: new ObjectId(_id) })
+        const result = await db.collection('exercises').deleteOne({ _id: new ObjectId(exerciseId) })
+        console.log("Delete Successfully")
         return result
     } catch (e) {
         console.log(e);

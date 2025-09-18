@@ -8,7 +8,6 @@ const { ObjectId } = require('mongodb');
 router.get('/',verifyToken, async(req,res) =>{
     try{
         const userId = req.user.id;
-        console.log("userId:", userId)
         const result = await exerciseServiceLayer.getAllExercise(userId)
         res.json(result)
     }catch(e){
@@ -53,13 +52,14 @@ router.put('/update/:id' ,verifyToken , async (req,res) => {
     }
 })
 
-router.delete('/delete', verifyToken, async (req,res) =>{
+router.delete('/delete/:id', verifyToken, async (req,res) =>{
     try{
-        let exerciseId = req.user.id;
+        let exerciseId = new ObjectId(req.params.id)
         const result = await exerciseServiceLayer.deleteExercise(exerciseId)
         res.json({
             "message":" You Have Successfully Deleted The Exercise",
             result});
+            
     }catch(e){
         console.log(e);
         res.status(500).json({

@@ -3,11 +3,19 @@ const connect = require('../server/database');
 const exerciseDataLayer = require('./exerciseData')
 
 
-async function getAllWorkoutByUser(userId) {
+async function getAllWorkout(userId) {
     try {
         const db = await connect();
-        const result = await db.collection('workout').find({ userId: new ObjectId(userId) }).toArray();
+            const filter = {
+            $or: [
+                { createdBy: { $regex: "^system$", $options: "i" } },
+                { createdBy: new ObjectId(userId) }
+            ]
+        }
+         console.log(filter)
+        const result = await db.collection('workout').find(filter).toArray();
         return result;
+        
     } catch (e) {
         console.log(e);
     }
@@ -92,4 +100,4 @@ async function deleteWorkout(workoutId){
     }
 }
 
-module.exports = { getAllWorkoutByUser, createWorkout, updateWorkout, deleteWorkout };
+module.exports = { getAllWorkout, createWorkout, updateWorkout, deleteWorkout };

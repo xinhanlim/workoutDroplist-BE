@@ -2,29 +2,25 @@ const express = require('express');
 const router = express.Router();
 const workoutService = require('../services/workoutService');
 const verifyToken = require('../middlewares/AuthenticationJWT');
-const { updateWorkout } = require('../data/workoutData');
-const { verify } = require('jsonwebtoken');
 require('dotenv').config();
 
-router.get('/:id', verifyToken, async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     try {
-        const userId = req.params.id;
-        const getWorkout = await workoutService.getAllWorkoutByUser(userId);
-        res.json({
-            getWorkout
-        });
+        const userId = req.user.id;
+        const result = await workoutService.getAllWorkout(userId);
+        res.json(result);
     } catch (e) {
         console.log(e);
         res.status(500).json({
             "error": e,
-            "message": "Invalid Email Or Password"
+            "message": "Unable to get workout"
         })
     }
 })
 
-router.post('/new/:id', verifyToken, async (req, res) => {
+router.post('/new', verifyToken, async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.user.id;
         const { notes, sets } = req.body
         const result = await workoutService.createWorkout(userId, notes, sets);
         res.json({

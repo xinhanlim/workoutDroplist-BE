@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb');
 const connect = require('../server/database');
-const exerciseDataLayer = require('./exerciseData')
+const exerciseDataLayer = require('./exerciseData');
+const e = require('express');
 
 
 async function getAllWorkout(userId) {
@@ -30,22 +31,22 @@ async function createWorkout(_id, notes = "", setsInput = []) {
         const match = exerciseDoc.find(d => norm(d.name) === norm(s.name));
         console.log(match);
         return {
-            exerciseId: match._id,
+            _id: match._id,
             name: match.name,
             weight: s.weight,
             reps: s.reps,
             rpe: s.rpe
         };
-    });
+    }); 
     console.log(sets);
 
     try {
         const db = await connect();
         const workoutDoc = {
-            userId: new ObjectId(_id),
             date: new Date(),
             notes,
-            sets
+            sets,
+            createdBy: new ObjectId(_id),
         }
         const result = await db.collection('workout').insertOne(workoutDoc);
         return result;

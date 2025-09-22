@@ -20,7 +20,8 @@ async function getAllExercise(userId) {
 async function getExerciseByName(name) {
     try {
         const db = await connect();
-        const extractName = Array.isArray(name) ? name.map(n => n.name) : [name];
+        const extractName = Array.isArray(name) ? name.map(n => (typeof n === "string" ? n : n?.name)) : [name];
+        console.log(extractName)
 
         const regexes = extractName.map(n => {
             // remove spaces, hyphens, underscores from input

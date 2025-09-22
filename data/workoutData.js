@@ -1,7 +1,6 @@
 const { ObjectId } = require('mongodb');
 const connect = require('../server/database');
 const exerciseDataLayer = require('./exerciseData');
-const e = require('express');
 
 
 async function getAllWorkout(userId) {
@@ -35,7 +34,7 @@ async function createWorkout(_id, notes = "", setsInput = []) {
             name: match.name,
             weight: s.weight,
             reps: s.reps,
-            rpe: s.rpe
+            timing: s.timing
         };
     }); 
     console.log(sets);
@@ -60,8 +59,6 @@ async function updateWorkout(workoutId,notes,setsInput =[]) {
     const name = setsInput.map(s => s.name)
    const exerciseDoc = await exerciseDataLayer.getExerciseByName(name);
    const norm = x => String(x || "").toLowerCase().replace(/[\s\-_]+/g, "")
-   console.log("exerciseDoc", exerciseDoc);
-
     const sets = setsInput.map(s => {
         const match = exerciseDoc.find(d => norm(d.name) === norm(s.name));
         return {
@@ -69,7 +66,7 @@ async function updateWorkout(workoutId,notes,setsInput =[]) {
             name: match.name,
             weight: s.weight,
             reps: s.reps,
-            rpe: s.rpe
+            timing: s.timing
         };
     });
 
@@ -78,13 +75,12 @@ async function updateWorkout(workoutId,notes,setsInput =[]) {
     try {
         const db = await connect();
         const updatedWorkout = {
+            _id: new ObjectId(workoutId),
             notes,
             sets,
-            updatedAt: new Date()
         }
         console.log("updatedWorkout",updatedWorkout);
-        const result = await db.collection('workout').updateOne({ _id}, { $set: updatedWorkout });
-
+        const result = await db.collection('workout').findOneAndUpdate({ _id}, { $set: updatedWorkout },{ returnDocument: 'after' });
         return result;
     } catch (e) {
         console.log(e);

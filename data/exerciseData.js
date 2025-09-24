@@ -38,13 +38,12 @@ async function getExerciseByName(name) {
 
 }
 
-async function createExercise(name, muscleGroup, unit, difficulty, userId) {
+async function createExercise(name, muscleGroup, difficulty, userId) {
     try {
         const db = await connect();
         const newExercise = {
             name,
             muscleGroup,
-            unit,
             difficulty,
             createdBy: userId
         }
@@ -56,7 +55,7 @@ async function createExercise(name, muscleGroup, unit, difficulty, userId) {
     }
 }
 
-async function updateExercise(exerciseId, name, muscleGroup, unit, difficulty) {
+async function updateExercise(exerciseId, name, muscleGroup, difficulty) {
     try {
 
         const db = await connect();
@@ -68,7 +67,6 @@ async function updateExercise(exerciseId, name, muscleGroup, unit, difficulty) {
             _id: new ObjectId(exerciseId),
             name,
             muscleGroup,
-            unit,
             difficulty
         }
         console.log('Updating with data:', updatedExercise);

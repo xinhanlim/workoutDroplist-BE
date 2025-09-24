@@ -12,7 +12,6 @@ async function getAllWorkout(userId) {
                 { createdBy: new ObjectId(userId) }
             ]
         }
-         console.log(filter)
         const result = await db.collection('workout').find(filter).toArray();
         return result;
         

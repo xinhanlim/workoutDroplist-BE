@@ -22,9 +22,9 @@ router.get('/',verifyToken, async(req,res) =>{
 router.post('/new' ,verifyToken , async (req,res) => {
     try{
         const userId = req.user.id;
-        const { name, muscleGroup, unit, difficulty} = req.body
+        const { name, muscleGroup,difficulty} = req.body
         console.log("post",req.body)
-        const result = await exerciseServiceLayer.createExercise(name, muscleGroup,unit,difficulty,createdBy = new ObjectId(userId))
+        const result = await exerciseServiceLayer.createExercise(name, muscleGroup,difficulty,createdBy = new ObjectId(userId))
         res.json({result});
 
     }catch(e){
@@ -39,8 +39,8 @@ router.post('/new' ,verifyToken , async (req,res) => {
 router.put('/update/:id' ,verifyToken , async (req,res) => {
     try{
         const exerciseId = new ObjectId(req.params.id)
-        let { name, muscleGroup, unit, difficulty } = req.body
-        const result = await exerciseServiceLayer.updateExercise( exerciseId , name, muscleGroup, unit, difficulty)
+        let { name, muscleGroup,difficulty } = req.body
+        const result = await exerciseServiceLayer.updateExercise( exerciseId , name, muscleGroup,difficulty)
         res.json(result);
 
     }catch(e){

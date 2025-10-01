@@ -11,7 +11,8 @@ const exerciseRouter = require('./routes/exerciseRoute')
 
 
 let app = express();
-app.use(cors());
+app.use(cors({ origin: ['https://workout-droplist-fe.vercel.app/'], credentials: true }));
+app.options('*', cors());
 app.use(express.json());
 
 app.get('/', (req, res)=>{

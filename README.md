@@ -1,10 +1,93 @@
-# workoutGamified-BE
+# Workout Droplist — Back-end
+
+- Back-end workout list for personal workout tracking.
+- Front-end: https://github.com/xinhanlim/workoutDroplist-FE
+- Live Demo: https://workout-droplist-fe.vercel.app
+
+## Features:
+
+- Full **CRUD functionality** for workouts and exercises
+- **Exercise filtering** by muscle group
+- **Workout search bar** for quick access
+- **Responsive UI** optimized for mobile web view
+- **Backend RESTful API** built with Express & MongoDB
+- **User authentication** with JWT-based login
+- **User-specific tagging** — workouts and exercises created by a user are securely linked to their account via JWT
+
+## Tech Stack:
+
+**Frontend:** React, Wouter, Tailwind CSS, Headless UI, Jotai, Axios, Formik, Yup, React-Toastify, jwt-decode  
+**Backend:** Node.js, Express, MongoDB, JWT, bcrypt, CORS  
+**Dev & Build:** Vite, Nodemon
+<br>
+**Hosting:** Vercel (frontend), Render (backend)
+
+## Getting Started
+
+### Clone the repo
+
+```bash
+# HTTPS
+git clone https://github.com/xinhanlim/workoutDroplist-BE.git
+cd workoutDroplist-BE
+```
+
+```bash
+# SSH
+git clone git@github.com:xinhanlim/workoutDroplist-BE.git
+cd workoutDroplist-BE
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Vite exposes only variables starting with `VITE_`.
+
+- **Local (Codespaces)** — create a `.env` file in the frontend root:
+
+```env
+MONGO_URL=mongodb+srv://root:xinhan241095@workoutgamified.tzauycz.mongodb.net/?retryWrites=true&w=majority&appName=workoutGamified
+PORT=3200
+MONGO_DBNAME=workoutGamified
+JWT_SECRET=e1a65d68b1acfe4159d6954fab781276
+```
+
+- Production (Vercel + Render) – in Vercel → Project → Settings → Environment Variables:
+
+```.env
+CORS_ORIGIN : https://workout-droplist-fe.vercel.app/
+JWT_SECRET: e1a65d68b1acfe4159d6954fab781276
+MONGO_DBNAME: workoutGamified
+MONGO_URL: mongodb+srv://root:xinhan241095@workoutgamified.tzauycz.mongodb.net/?retryWrites=true&w=majority&appName=workoutGamified
+PORT: 3200
+```
+
+## Run Command
+Install Nodemon,
+```bash
+npm install nodemon
+```
+then follow on with nodemon
+```bash
+nodemon
+```
+
+# Screenshot
+
+- Live Demo: https://workout-droplist-fe.vercel.app
+
+![Live Demo](public/Project1Photo.jpg)
 
 
 ## Problem Encountered
 
 ### 1. Unable to extract the Id,Name,Weight,Reps,Rpe in the array of Sets of the workout. 
-<details>
+<details><summary>Expand</summary>
 
 ```js
 const result = await db.collection('exercises').find({ name: { $in: regexes } }, { projection: { _id: 1, name: 1 } }).toArray();

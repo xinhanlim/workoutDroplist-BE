@@ -95,20 +95,17 @@ Vite exposes only variables starting with `VITE_`.
 - **Local (Codespaces)** — create a `.env` file in the frontend root:
 
 ```env
-MONGO_URL=mongodb+srv://root:xinhan241095@workoutgamified.tzauycz.mongodb.net/?retryWrites=true&w=majority&appName=workoutGamified
-PORT=3200
+MONGO_URL=<your_atlas_uri_here>
 MONGO_DBNAME=workoutGamified
-JWT_SECRET=e1a65d68b1acfe4159d6954fab781276
+JWT_SECRET=<your_local_dev_secret >
 ```
 
 - Production (Vercel + Render) – in Vercel → Project → Settings → Environment Variables:
 
 ```.env
 CORS_ORIGIN : https://workout-droplist-fe.vercel.app/
-JWT_SECRET: e1a65d68b1acfe4159d6954fab781276
-MONGO_DBNAME: workoutGamified
-MONGO_URL: mongodb+srv://root:xinhan241095@workoutgamified.tzauycz.mongodb.net/?retryWrites=true&w=majority&appName=workoutGamified
-PORT: 3200
+JWT_SECRET: <your_local_dev_secret> 
+MONGO_URL: <your_atlas_uri_here>
 ```
 
 ## Run Command

@@ -94,7 +94,7 @@ npm install
 
 ```env
 MONGO_URL=<your_atlas_uri_here>
-MONGO_DBNAME=workoutGamified
+MONGO_DBNAME=<your_db_name>
 JWT_SECRET=<your_local_dev_secret>
 ```
 
@@ -104,6 +104,7 @@ JWT_SECRET=<your_local_dev_secret>
 CORS_ORIGIN : https://workout-droplist-fe.vercel.app/
 JWT_SECRET: <your_local_dev_secret> 
 MONGO_URL: <your_atlas_uri_here>
+MONGO_DBNAME: <your_db_name>
 ```
 
 ## Run Command

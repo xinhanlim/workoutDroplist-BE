@@ -22,6 +22,50 @@
 <br>
 **Hosting:** Vercel (frontend), Render (backend)
 
+## Data Structure - MongoDB
+
+Exercise Collection:
+
+```js
+{
+  "_id": {
+    "$oid": "68aec4ceac4e773042f49c50"
+  },
+  "name": "Push-up",
+  "muscleGroup": "Arms",
+  "difficulty": "Beginner",
+  "createdBy": "System"
+}
+```
+
+Workout Collection
+
+```js
+{
+  "_id": {
+    "$oid": "68cbd978ac029342944be655"
+  },
+  "date": {
+    "$date": "2025-08-25T04:33:13.462Z"
+  },
+  "notes": "Sample Workout",
+  "sets": [
+    {
+      "_id": {
+        "$oid": "68a4384d1322900ffd4104ef"
+      },
+      "name": "Push-up",
+      "weight": 80,
+      "reps": 5,
+      "rpe": 8
+    }
+  ],
+  "createdBy": "System"
+}
+```
+
+
+
 ## Getting Started
 
 ### Clone the repo
@@ -81,7 +125,7 @@ nodemon
 
 - Live Demo: https://workout-droplist-fe.vercel.app
 
-![Live Demo](public/Project1Photo.jpg)
+![Live Demo](images/Project1Photo.jpg)
 
 
 ## Problem Encountered

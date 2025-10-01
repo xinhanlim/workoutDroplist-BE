@@ -90,17 +90,15 @@ npm install
 
 ### Environment Variables
 
-Vite exposes only variables starting with `VITE_`.
-
-- **Local (Codespaces)** — create a `.env` file in the frontend root:
+- **Local (Codespaces)** — create a `.env` file in the backend root:
 
 ```env
 MONGO_URL=<your_atlas_uri_here>
 MONGO_DBNAME=workoutGamified
-JWT_SECRET=<your_local_dev_secret >
+JWT_SECRET=<your_local_dev_secret>
 ```
 
-- Production (Vercel + Render) – in Vercel → Project → Settings → Environment Variables:
+- Production (Vercel + Render) – in Render → Project → Service → Environment Variables:
 
 ```.env
 CORS_ORIGIN : https://workout-droplist-fe.vercel.app/

@@ -21,7 +21,6 @@ async function getExerciseByName(name) {
     try {
         const db = await connect();
         const extractName = Array.isArray(name) ? name.map(n => (typeof n === "string" ? n : n?.name)) : [name];
-        console.log(extractName)
 
         const regexes = extractName.map(n => {
             // remove spaces, hyphens, underscores from input
@@ -59,17 +58,14 @@ async function updateExercise(exerciseId, name, muscleGroup, difficulty) {
     try {
 
         const db = await connect();
-        console.log('Looking for exercise with ID:', exerciseId);
         const ex = await db.collection('exercises').findOne({ _id: new ObjectId(exerciseId) });
-        console.log('Found exerciseId:', exerciseId);
-        console.log('Found exercise:', ex);
         const updatedExercise = {
             _id: new ObjectId(exerciseId),
             name,
             muscleGroup,
             difficulty
         }
-        console.log('Updating with data:', updatedExercise);
+
 
         const result = await db.collection('exercises').findOneAndUpdate(
             { _id: new ObjectId(exerciseId) },
@@ -77,7 +73,6 @@ async function updateExercise(exerciseId, name, muscleGroup, difficulty) {
             { returnDocument: 'after' }
 
         )
-        console.log('findOneAndUpdate value:', result);
         return result;
 
     } catch (e) {
@@ -87,17 +82,12 @@ async function updateExercise(exerciseId, name, muscleGroup, difficulty) {
 async function deleteExercise(exerciseId) {
     try {
         const db = await connect();
-        console.log('Looking for exercise with ID:', exerciseId);
         const ex = await db.collection('exercises').findOne({ _id: new ObjectId(exerciseId) });
         if ((ex.name).toLowerCase() === 'system') {
             const err = new Error("System exercises can't be deleted");
             throw err
         }
-        console.log("Found Exercise Id : ", ex._id)
-        console.log("Deleting Exercise Id : ", ex._id)
-
         const result = await db.collection('exercises').deleteOne({ _id: new ObjectId(exerciseId) })
-        console.log("Delete Successfully")
         return result
     } catch (e) {
         console.log(e);

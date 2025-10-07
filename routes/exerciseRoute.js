@@ -23,7 +23,6 @@ router.post('/new' ,verifyToken , async (req,res) => {
     try{
         const userId = req.user.id;
         const { name, muscleGroup,difficulty} = req.body
-        console.log("post",req.body)
         const result = await exerciseServiceLayer.createExercise(name, muscleGroup,difficulty,createdBy = new ObjectId(userId))
         res.json({result});
 

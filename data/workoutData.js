@@ -27,7 +27,6 @@ async function createWorkout(_id, notes = "", setsInput = []) {
 
     const sets = setsInput.map(s => {
         const match = exerciseDoc.find(d => norm(d.name) === norm(s.name));
-        console.log(match);
         return {
             _id: match._id,
             name: match.name,
@@ -36,7 +35,6 @@ async function createWorkout(_id, notes = "", setsInput = []) {
             timing: s.timing
         };
     }); 
-    console.log(sets);
 
     try {
         const db = await connect();
@@ -78,7 +76,6 @@ async function updateWorkout(workoutId,notes,setsInput =[]) {
             notes,
             sets,
         }
-        console.log("updatedWorkout",updatedWorkout);
         const result = await db.collection('workout').findOneAndUpdate({ _id}, { $set: updatedWorkout },{ returnDocument: 'after' });
         return result;
     } catch (e) {

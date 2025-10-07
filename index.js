@@ -8,11 +8,8 @@ const workoutRouter = require('./routes/workoutRoute');
 const exerciseRouter = require('./routes/exerciseRoute')
 
 
-
-
 let app = express();
-app.use(cors({ origin: ['https://workout-droplist-fe.vercel.app/'], credentials: true }));
-app.options('*', cors());
+app.use(cors({ origin: ['https://workout-droplist-fe.vercel.app'], credentials: true }));
 app.use(express.json());
 
 app.get('/', (req, res)=>{
